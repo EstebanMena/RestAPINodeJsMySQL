@@ -22,7 +22,7 @@ expenseModel.getExpenses = (callback) => {
             }
         );
     }
-}
+};
 
 expenseModel.insertExpense = (expenseData, callback) => {
     if (connection) {
@@ -39,11 +39,11 @@ expenseModel.insertExpense = (expenseData, callback) => {
             }
         );
     }
-}
+};
 
 expenseModel.updateExpense = (expenseData, callback) => {
     if (connection) {
-        const sql = `
+        let sql = `
             UPDATE expenses SET
             category = ${connection.escape(expenseData.category)},
             descripcion = ${connection.escape(expenseData.descripcion)},
@@ -61,6 +61,30 @@ expenseModel.updateExpense = (expenseData, callback) => {
             }
         });
     }
-}
+};
+
+expenseModel.deleteExpense = (id, callback) => {
+    if (connection) {
+        let sql = `SELECT * FROM expenses WHERE id = ${connection.escape(id)}`;
+        connection.query(sql, (err, row) => {
+            if (row) {
+                let sql = `DELETE FROM expenses WHERE id = ${connection.escape(id)}`;
+                connection.query(sql, (err, result) => {
+                    if (err) {
+                        throw err;
+                    } else {
+                        callback(null, {
+                            msg: 'deleted'
+                        });
+                    }
+                });
+            } else {
+                callback(null, {
+                    msg: 'not exists'
+                });
+            }
+        });
+    }
+};
 
 module.exports = expenseModel;

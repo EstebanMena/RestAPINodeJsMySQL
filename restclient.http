@@ -1,14 +1,28 @@
 
-GET http://localhost:3000/expenses
+GET http://localhost:3000/expenses HTTP/1.1
 
 ###
 
-PUT http://localhost:3000/expenses HTTP/1.1
+POST http://localhost:3000/expenses/ HTTP/1.1
 content-type: application/json
 
 {
-    "id": 2,
     "category": "transporte",
-    "description": "aguayo",
+    "description": "AGUAYOs",
     "amount": 25
 }
+
+###
+
+PUT http://localhost:3000/expenses/3 HTTP/1.1
+content-type: application/json
+
+{
+    "category": "transporte",
+    "description": "AGUAYOs",
+    "amount": 25
+}
+
+###
+
+DELETE http://localhost:3000/expenses/2 HTTP/1.1

@@ -59,7 +59,22 @@ module.exports = (app) => {
                 });
             }
         });
-    })
+    });
+
+    app.delete('/expenses/:id', (req, res) => {
+        expense.deleteExpense(req.params.id, (err, data) => {
+            if (data && data.msg === 'deleted' || data.msg === 'not exists') {
+                res.status(200).json({
+                    success: true,
+                    data
+                });
+            } else {
+                res.status(500).json({
+                    msg: 'Error'
+                });
+            }
+        });
+    });
 }
 
 
