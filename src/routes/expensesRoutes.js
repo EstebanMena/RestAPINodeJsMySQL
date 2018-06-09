@@ -35,9 +35,9 @@ module.exports = (app) => {
 
     });
 
-    app.put('/expenses', (req, res) => {
+    app.put('/expenses/:id', (req, res) => {
         const expenseData = {
-            id: null,
+            id: req.params.id,
             category: req.body.category,
             descripcion: req.body.description,
             amount: req.body.amount,
